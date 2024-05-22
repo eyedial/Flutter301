@@ -1,4 +1,8 @@
+import 'package:app6_listview_dialog/common/Common.dart';
+import 'package:app6_listview_dialog/models/JangterModel.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class JangterPage extends StatefulWidget {
   const JangterPage({super.key});
@@ -66,9 +70,18 @@ class _JangterPageState extends State<JangterPage> {
 
   @override
   Widget build(BuildContext context) {
+    // 지금 구동되고 있는 폰의 가로 세로 크기를 알 수 있다
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     // 위에 있는 리스트들을 장터모델에 넣는다
-
-
+    final List<JangterModel> jangterModels = List.generate(
+        title.length,
+            (index) => JangterModel(imgPath: imgPath[index], title: title[index],
+             price: price[index], address: address[index], liked: liked[index])
+    );
+    print('-----------------------length');
+    print(jangterModels.length);
 
     return Scaffold(
       appBar: AppBar(
@@ -82,9 +95,64 @@ class _JangterPageState extends State<JangterPage> {
       // 리스트뷰.빌더는 어느정도 되면 먼저 빌드하고 다음에 다시 가져온다
       body: ListView.builder(
         // 보여줘야할 갯수 : 리스트의 갯수
-        itemCount: ,
+        itemCount: jangterModels.length,
         itemBuilder: (context, index){
-
+          return Card(
+            child: Row(
+              children: [
+                // 이미지를 클릭하면 물품의 자세한 내용을 가진 팝업창이 뜨게 한다
+                InkWell(
+                  onTap: (){
+                    Common.showPopup(context, title[index], imgPath[index],
+                        price[index], address[index], liked[index]);
+                  },
+                  child: Container(
+                    width: screenWidth * 0.3,
+                    height: screenWidth * 0.3,
+                    child: Image(image: AssetImage(jangterModels[index].imgPath!)),
+                  ),
+                ),
+                Expanded(
+                  child: Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          jangterModels[index].title!,
+                          style: TextStyle(
+                            fontSize: 18,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 10,),
+                        Text(
+                          jangterModels[index].price!,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: 10,),
+                        Text(
+                          jangterModels[index].address!,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                    
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
       ),
     );
