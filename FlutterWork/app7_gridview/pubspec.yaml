@@ -1,4 +1,4 @@
-name: app6_listview_dialog
+name: app7_gridview
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -34,7 +34,6 @@ dependencies:
   # 좋아요 버튼
   # import 'package:like_button/like_button.dart';
   like_button: ^2.0.5
-
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

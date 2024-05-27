@@ -1,9 +1,7 @@
-import 'package:app6_listview_dialog/common/Common.dart';
-import 'package:app6_listview_dialog/models/JangterModel.dart';
-import 'package:app6_listview_dialog/screens/DetailPage.dart';
-import 'package:flutter/cupertino.dart';
+import '/common/Common.dart';
+import '/models/JangterModel.dart';
+import '/screens/DetailPage.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class JangterPage extends StatefulWidget {
   const JangterPage({super.key});
@@ -86,17 +84,25 @@ class _JangterPageState extends State<JangterPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Listview - 동네 장터'),
+        title: Text('Gridview - 동네 장터'),
         elevation: 0,
         backgroundColor: Colors.blue.shade100,
         centerTitle: true,
       ),
-      // 리스트뷰와 리스트뷰.빌더가 있는데 리스트뷰는 모든 데이터를 가져와서
-      // 보여주기 때문에 데이터가 많을때 지연된다 : 몇게 안되는, 정해져 있는 리스트
-      // 리스트뷰.빌더는 어느정도 되면 먼저 빌드하고 다음에 다시 가져온다
-      body: ListView.builder(
+
+      body: GridView.builder(
         // 보여줘야할 갯수 : 리스트의 갯수
         itemCount: jangterModels.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          // 가로로 몇개를 배치할 것인가
+          crossAxisCount: 2,
+          // 가로끼리 얼마나 공간을 띄울것인가
+          crossAxisSpacing: 10,
+          // 위 아래로 얼마나 공간을 띄울것인가
+          mainAxisSpacing: 10,
+          // Gridview Tile 높이조정 : 반드시 높이 조절시 필요
+          mainAxisExtent: 260,
+        ),
         itemBuilder: (context, index){
           return Card(
             child: Row(
