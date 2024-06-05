@@ -105,7 +105,7 @@ class _JangterPageState extends State<JangterPage> {
         ),
         itemBuilder: (context, index){
           return Card(
-            child: Row(
+            child: Column(
               children: [
                 // 이미지를 클릭하면 물품의 자세한 내용을 가진 팝업창이 뜨게 한다
                 InkWell(
